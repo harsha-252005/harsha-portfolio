@@ -1,54 +1,40 @@
-import { motion } from 'framer-motion';
-import { HiBadgeCheck } from 'react-icons/hi';
-import { FaAws, FaReact, FaJava } from 'react-icons/fa';
-import { SiSpringboot } from 'react-icons/si';
-import { useTheme } from '../context/ThemeContext';
-import SectionTitle from '../components/SectionTitle';
+import { FaCertificate, FaExternalLinkAlt } from 'react-icons/fa';
 
-const certs = [
-    { title: 'AWS Developer Associate', icon: <FaAws size={24} />, provider: 'Amazon Web Services' },
-    { title: 'React Web Developer', icon: <FaReact size={24} />, provider: 'Meta' },
-    { title: 'Spring Boot Specialist', icon: <SiSpringboot size={24} />, provider: 'Infosys' },
-    { title: 'Java Foundation', icon: <FaJava size={24} />, provider: 'Oracle' },
+const certifications = [
+  {
+    title: 'AWS Certified AI Practitioner',
+    issuer: 'Amazon Web Services (AWS)',
+    type: 'AWS Certification',
+    date: 'Issued Aug 2, 2026 · Expires Aug 2, 2029',
+    image: '/aws-ai-practitioner.jpg',
+    imageAlt: 'AWS Certified AI Practitioner certificate',
+    verification: 'https://aws.amazon.com/verification',
+    verificationLabel: 'Verify credential',
+    detail: 'Validation number: 6351ca30c8114e9484905fb9071df0aa',
+    skills: ['AI & ML on AWS', 'Generative AI', 'Machine Learning', 'AWS Cloud'],
+  },
+  {
+    title: 'Data Analyst with ML Essentials',
+    issuer: 'NeoColab / iamneo',
+    type: 'Professional Elective Program · SKCET',
+    date: 'Completed Aug 8, 2026',
+    image: '/data-analyst-ml-essentials.jpg',
+    imageAlt: 'Data Analyst with ML Essentials certificate',
+    detail: 'Professional Elective Program at Sri Krishna College of Engineering & Technology.',
+    skills: ['Python', 'Power BI', 'Statistical Methods', 'Machine Learning', 'LLMs'],
+  },
 ];
 
 export default function Certifications() {
-    const { isDark } = useTheme();
-
-    return (
-        <section id="certifications" className="snap-section">
-            <div className="max-w-5xl mx-auto px-6">
-                <SectionTitle label="— CREDENTIALS —" title="Certifications" subtitle="Professional certifications and technical accomplishments." />
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                    {certs.map((c, i) => (
-                        <motion.div
-                            key={c.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1, duration: 0.8 }}
-                            className={`p-8 rounded-2xl flex flex-col items-center text-center card ${isDark ? 'card-dark' : 'card-light'
-                                }`}
-                        >
-                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-5 ${isDark ? 'bg-white/5 text-accent-soft' : 'bg-accent/5 text-accent'
-                                }`}>
-                                {c.icon}
-                            </div>
-                            <h3 className={`font-heading text-lg font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                {c.title}
-                            </h3>
-                            <p className={`text-xs tracking-wide mb-4 ${isDark ? 'text-text-muted' : 'text-gray-500'}`}>
-                                {c.provider}
-                            </p>
-                            <div className={`flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase ${isDark ? 'text-green-400/70' : 'text-green-600'
-                                }`}>
-                                <HiBadgeCheck size={14} /> Certified
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+  return <section id="certifications" className="certifications-section"><div className="certifications-shell">
+    <div className="certifications-heading"><h2>/ certifications</h2><span aria-hidden="true" /></div>
+    <div className="certifications-grid">{certifications.map((certification) => <article className="certification-card" key={certification.title}>
+      <div className="certification-image"><img src={certification.image} alt={certification.imageAlt} /></div>
+      <div className="certification-content"><div className="certification-icon"><FaCertificate aria-hidden="true" /></div><p className="certification-issuer">{certification.issuer}</p>
+        <h3>{certification.title}</h3><p className="certification-type">{certification.type}</p><p className="certification-date">{certification.date}</p><p className="certification-detail">{certification.detail}</p>
+        {certification.verification && <a className="certification-verify" href={certification.verification} target="_blank" rel="noreferrer">{certification.verificationLabel} <FaExternalLinkAlt aria-hidden="true" /></a>}
+        <ul className="certification-skills">{certification.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
+      </div>
+    </article>)}</div>
+  </div></section>;
 }

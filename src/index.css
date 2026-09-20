@@ -44,6 +44,9 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
 .software-card p { margin:0; color:#8892b0; font:18px/1.35 'NTR',sans-serif; }
 .software-tech { margin-top:auto; padding-top:26px; color:#8892b0; font:16px/1.2 'NTR',sans-serif; }
 .software-card-image { display:none; }
+.certifications-section { padding:80px 0; background:#0a192f; }.certifications-shell { width:calc(100% - 300px); max-width:1500px; margin:0 auto; }
+.certifications-heading { display:flex; align-items:center; width:100%; margin:0 0 48px; }.certifications-heading h2 { margin:0; color:#ccd6f6; font:700 46px/1 'NTR',sans-serif; letter-spacing:0; white-space:nowrap; }.certifications-heading span { height:1px; flex:1; margin-top:39px; margin-left:20px; background:#233554; }
+.certifications-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }.certification-card { overflow:hidden; border:1px solid #233554; border-radius:16px; background:#112240; box-shadow:0 10px 30px -15px rgba(2,12,27,.7); transition:transform .25s ease,background .25s ease; }.certification-card:hover { background:#172d4b; transform:translateY(-6px); }.certification-image { display:grid; aspect-ratio:1.78; place-items:center; padding:14px; background:#0a192f; }.certification-image img { display:block; width:100%; height:100%; object-fit:contain; border-radius:6px; }.certification-content { position:relative; padding:28px; }.certification-icon { position:absolute; top:28px; right:28px; color:#64ffda; font-size:27px; }.certification-issuer,.certification-type,.certification-date,.certification-detail { margin:0; color:#8892b0; font:17px/1.45 'NTR',sans-serif; }.certification-issuer { padding-right:45px; color:#64ffda; }.certification-card h3 { max-width:90%; margin:8px 0 10px; color:#ccd6f6; font:700 32px/1.1 'NTR',sans-serif; }.certification-type { color:#a8b2d1; }.certification-date { margin-top:4px; font-family:'DM Mono',monospace; font-size:11px; }.certification-detail { min-height:49px; margin-top:16px; }.certification-verify { display:inline-flex; align-items:center; gap:7px; margin-top:14px; color:#64ffda; font:500 13px 'DM Mono',monospace; text-decoration:none; }.certification-verify:hover { color:#ccd6f6; }.certification-skills { display:flex; flex-wrap:wrap; gap:7px; margin:20px 0 0; padding:0; list-style:none; }.certification-skills li { border:1px solid #233554; border-radius:999px; color:#a8b2d1; padding:4px 9px; font:11px/1.1 'DM Mono',monospace; }
 .contact-section { padding:80px 0; background:#0a192f; }.contact-shell { width:calc(100% - 300px); max-width:1500px; margin:0 auto; }
 .contact-heading { display:flex; align-items:center; margin-bottom:48px; }.contact-heading h2 { margin:0; color:#ccd6f6; font:700 58px/1 'NTR',sans-serif; }.contact-heading span { width:450px; height:1px; margin-left:30px; background:#233554; }
 .contact-layout { display:grid; grid-template-columns:minmax(280px,.8fr) minmax(480px,1.2fr); gap:100px; align-items:start; }.contact-copy { padding-top:7px; color:#8892b0; font:24px/1.5 'NTR',sans-serif; }.contact-copy p { margin:0 0 20px; }.contact-copy > a { color:#64ffda; font:700 23px/1.2 'NTR',sans-serif; text-decoration:none; }.contact-copy > a:hover { color:#ccd6f6; }
@@ -212,6 +215,23 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
   .contact-copy { padding-top:0; font-size:18px; line-height:1.6; }
   .contact-copy > a { font-size:18px; }
   .contact-form { padding:24px; }
+}
+
+@media (max-width:900px) { .certifications-section { padding-left:32px; padding-right:32px; }.certifications-shell { width:100%; } }
+@media (max-width:640px) {
+  .certifications-section { padding:60px 34px; }
+  .certifications-heading { width:auto; margin-bottom:20px; }
+  .certifications-heading h2 { font-size:32px; }
+  .certifications-heading span { display:none; }
+  .certifications-grid { grid-template-columns:1fr; gap:20px; }
+  .certification-card { border-radius:16px; }
+  .certification-image { padding:12px; }
+  .certification-content { padding:26px 24px; }
+  .certification-icon { top:26px; right:24px; }
+  .certification-card h3 { font-size:27px; }
+  .certification-issuer,.certification-type,.certification-detail { font-size:18px; }
+  .certification-detail { min-height:0; }
+  .certification-skills { margin-top:18px; }
 }
 
 /* Mobile-only: restore the existing interactive profile photo below About. */
