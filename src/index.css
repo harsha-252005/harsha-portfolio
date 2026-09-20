@@ -213,3 +213,8 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
   .contact-copy > a { font-size:18px; }
   .contact-form { padding:24px; }
 }
+
+/* Mobile-only: restore the existing interactive profile photo below About. */
+@media (max-width:640px) {
+  .about-photo { display:block; width:min(100%,200px); height:auto; margin:32px auto 0; touch-action:manipulation; }
+}
