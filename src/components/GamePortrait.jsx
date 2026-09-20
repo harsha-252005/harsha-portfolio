@@ -114,6 +114,7 @@ export default function GamePortrait() {
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     let animationFrame;
+    let mobileEffectTimer;
     let touchStartedOnFace = false;
 
     const render = () => {
@@ -227,10 +228,20 @@ export default function GamePortrait() {
       // interaction; blank-space touches remain a pure reset.
       if (touchStartedOnFace) move(touchPoint);
     };
+    const endTouch = () => {
+      if (window.innerWidth <= 480 && touchStartedOnFace) {
+        // A desktop pointer remains over the canvas while particles react. Give
+        // a phone tap the same short active window before restoring idle state.
+        clearTimeout(mobileEffectTimer);
+        mobileEffectTimer = setTimeout(leave, 360);
+        return;
+      }
+      leave();
+    };
     canvas.addEventListener('mousemove', mouseMove);
     canvas.addEventListener('mouseleave', leave);
     canvas.addEventListener('touchmove', touch, { passive: false });
-    canvas.addEventListener('touchend', leave);
+    canvas.addEventListener('touchend', endTouch);
     canvas.addEventListener('touchstart', beginTouch, { passive: true });
     document.addEventListener('pointerdown', resetFromOutsideTap);
     document.addEventListener('touchstart', resetFromOutsideTouch, { passive: true });
@@ -240,10 +251,11 @@ export default function GamePortrait() {
       canvas.removeEventListener('mousemove', mouseMove);
       canvas.removeEventListener('mouseleave', leave);
       canvas.removeEventListener('touchmove', touch);
-      canvas.removeEventListener('touchend', leave);
+      canvas.removeEventListener('touchend', endTouch);
       canvas.removeEventListener('touchstart', beginTouch);
       document.removeEventListener('pointerdown', resetFromOutsideTap);
       document.removeEventListener('touchstart', resetFromOutsideTouch);
+      clearTimeout(mobileEffectTimer);
     };
   }, [ready, size]);
 
