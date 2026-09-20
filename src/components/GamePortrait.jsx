@@ -49,6 +49,9 @@ function particlesFromImage(image, size) {
   const fontSize = window.innerWidth <= 480 || size <= 280 ? 5 : 7;
   const columnGap = fontSize * 0.7;
   const rowGap = fontSize * 1.1;
+  // A phone has too little space for the desktop's scattered entrance effect.
+  // Start particles at their targets so none briefly appear outside the face.
+  const entranceSpread = window.innerWidth <= 480 ? 0 : size;
   const particles = [];
 
   for (let y = 0; y < size; y += rowGap) {
@@ -61,8 +64,8 @@ function particlesFromImage(image, size) {
       // reference effect. A minimum dot keeps the black shirt visible.
       const glyphIndex = Math.max(1, Math.floor(brightness * (characters.length - 1)));
       particles.push({
-        x: x + (Math.random() - 0.5) * size,
-        y: y + (Math.random() - 0.5) * size,
+        x: x + (Math.random() - 0.5) * entranceSpread,
+        y: y + (Math.random() - 0.5) * entranceSpread,
         targetX: x, targetY: y, vx: 0, vy: 0,
         char: characters[glyphIndex],
         alpha: 0.4 + brightness * 0.6,
