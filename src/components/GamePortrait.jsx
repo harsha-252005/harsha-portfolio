@@ -216,7 +216,7 @@ export default function GamePortrait() {
       // Only a touch that begins directly on a rendered glyph may disturb the
       // face. This prevents tiny browser touch movements in blank canvas areas
       // from undoing an intended reset.
-      touchStartedOnFace = particles.current.some((particle) => Math.hypot(particle.targetX - x, particle.targetY - y) < 4);
+      touchStartedOnFace = particles.current.some((particle) => Math.hypot(particle.targetX - x, particle.targetY - y) < 16);
       resetFromCanvasBlankSpace();
       // A direct tap on a visible dot is enough to trigger the portrait
       // interaction; blank-space touches remain a pure reset.
