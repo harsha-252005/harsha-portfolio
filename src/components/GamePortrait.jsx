@@ -165,7 +165,12 @@ export default function GamePortrait() {
 
     const move = (event) => {
       const rect = canvas.getBoundingClientRect();
-      pointerTarget.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+      // The mobile canvas is visually scaled down while particle coordinates
+      // remain at desktop resolution, so convert the touch point accordingly.
+      pointerTarget.current = {
+        x: (event.clientX - rect.left) * (size / rect.width),
+        y: (event.clientY - rect.top) * (size / rect.height),
+      };
       pointer.current.active = true;
     };
     const mouseMove = (event) => {
