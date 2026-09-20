@@ -49,6 +49,7 @@ function particlesFromImage(image, size) {
   const fontSize = window.innerWidth <= 480 || size <= 280 ? 5 : 7;
   const columnGap = fontSize * 0.7;
   const rowGap = fontSize * 1.1;
+  const alphaThreshold = window.innerWidth <= 480 ? 210 : 128;
   // A phone has too little space for the desktop's scattered entrance effect.
   // Start particles at their targets so none briefly appear outside the face.
   const entranceSpread = window.innerWidth <= 480 ? 0 : size;
@@ -58,7 +59,7 @@ function particlesFromImage(image, size) {
     for (let x = 0; x < size; x += columnGap) {
       const index = (Math.floor(y) * size + Math.floor(x)) * 4;
       const alpha = pixels[index + 3];
-      if (alpha <= 128) continue;
+      if (alpha <= alphaThreshold) continue;
       const brightness = (pixels[index] + pixels[index + 1] + pixels[index + 2]) / 765;
       // This is the same direct luminance-to-character mapping as the
       // reference effect. A minimum dot keeps the black shirt visible.
