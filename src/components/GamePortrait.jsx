@@ -3,9 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 const characters = ' .:-=+*#%@'.split('');
 
 function canvasSize() {
-  const width = window.innerWidth;
-  if (width <= 480) return Math.min(220, width - 40);
-  if (width <= 768) return Math.min(280, width - 60);
+  // Keep the detailed desktop particle grid at every breakpoint. CSS controls
+  // the compact mobile footprint without reducing facial definition.
   return 400;
 }
 
@@ -37,7 +36,7 @@ function particlesFromImage(image, size) {
   const cropHeight = Math.min(bottom - top + 1, Math.round(cropWidth * 1.36));
   // Keep the mobile portrait compact inside its canvas, matching the
   // reference composition instead of filling the whole first screen.
-  const scale = size <= 280 ? 0.62 : 0.92;
+  const scale = window.innerWidth <= 480 ? 0.62 : 0.92;
   let height = size * scale;
   let width = height * (cropWidth / cropHeight) * 1.24;
   if (width > size * scale) {
