@@ -50,9 +50,9 @@ function particlesFromImage(image, size) {
   const columnGap = fontSize * 0.7;
   const rowGap = fontSize * 1.1;
   const alphaThreshold = window.innerWidth <= 480 ? 210 : 128;
-  // A phone has too little space for the desktop's scattered entrance effect.
-  // Start particles at their targets so none briefly appear outside the face.
-  const entranceSpread = window.innerWidth <= 480 ? 0 : size;
+  // Keep the scatter-in entrance on every screen size. The mobile render then
+  // settles without the desktop's extra post-entry breathing motion.
+  const entranceSpread = size;
   const particles = [];
 
   for (let y = 0; y < size; y += rowGap) {
