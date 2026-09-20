@@ -120,6 +120,7 @@ export default function GamePortrait() {
       context.clearRect(0, 0, size, size);
       if (!ready) return;
       const elapsed = (performance.now() - startTime.current) / 1000;
+      const isMobileViewport = window.innerWidth <= 480;
       pointer.current.x += (pointerTarget.current.x - pointer.current.x) * 0.15;
       pointer.current.y += (pointerTarget.current.y - pointer.current.y) * 0.15;
       particles.current.forEach((particle) => {
@@ -127,7 +128,9 @@ export default function GamePortrait() {
         if (particleTime < 0) return;
         const fade = Math.min(particleTime / 1.5, 1);
         const easedFade = 1 - (1 - fade) ** 2;
-        const active = pointer.current.active || particleTime < 3;
+        // The desktop gets a short settling animation. On phones the compact
+        // face should be stable immediately after a reload.
+        const active = pointer.current.active || (!isMobileViewport && particleTime < 3);
         const shimmer = active ? Math.sin(elapsed * 2 + particle.shimmer) * 0.1 : 0;
         if (pointer.current.active) {
           const dx = particle.x - pointer.current.x;
