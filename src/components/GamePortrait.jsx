@@ -218,6 +218,9 @@ export default function GamePortrait() {
       // from undoing an intended reset.
       touchStartedOnFace = particles.current.some((particle) => Math.hypot(particle.targetX - x, particle.targetY - y) < 4);
       resetFromCanvasBlankSpace();
+      // A direct tap on a visible dot is enough to trigger the portrait
+      // interaction; blank-space touches remain a pure reset.
+      if (touchStartedOnFace) move(touchPoint);
     };
     canvas.addEventListener('mousemove', mouseMove);
     canvas.addEventListener('mouseleave', leave);
