@@ -34,9 +34,10 @@ function particlesFromImage(image, size) {
   // Use a head-and-shoulders crop. The original image is longer than the
   // reference portrait, which otherwise makes the face too small to read.
   const cropHeight = Math.min(bottom - top + 1, Math.round(cropWidth * 1.36));
-  // Keep the mobile portrait compact inside its canvas, matching the
-  // reference composition instead of filling the whole first screen.
-  const scale = window.innerWidth <= 480 ? 0.62 : 0.92;
+  // Use one portrait composition at every size so the facial proportions on
+  // phones are identical to desktop. The mobile stylesheet scales the canvas
+  // while retaining its original layout slot.
+  const scale = 0.92;
   let height = size * scale;
   let width = height * (cropWidth / cropHeight) * 1.24;
   if (width > size * scale) {
