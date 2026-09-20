@@ -168,6 +168,12 @@ export default function GamePortrait() {
       pointerTarget.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
       pointer.current.active = true;
     };
+    const mouseMove = (event) => {
+      // Mobile browsers can synthesize mouse events after a touch. Those must
+      // not re-scatter a portrait that was just reset from blank space.
+      if (window.innerWidth <= 480) return;
+      move(event);
+    };
     const leave = () => {
       pointer.current.active = false;
       pointerTarget.current = { x: -1000, y: -1000 };
@@ -213,7 +219,7 @@ export default function GamePortrait() {
       touchStartedOnFace = particles.current.some((particle) => Math.hypot(particle.targetX - x, particle.targetY - y) < 4);
       resetFromCanvasBlankSpace();
     };
-    canvas.addEventListener('mousemove', move);
+    canvas.addEventListener('mousemove', mouseMove);
     canvas.addEventListener('mouseleave', leave);
     canvas.addEventListener('touchmove', touch, { passive: false });
     canvas.addEventListener('touchend', leave);
@@ -223,7 +229,7 @@ export default function GamePortrait() {
     render();
     return () => {
       cancelAnimationFrame(animationFrame);
-      canvas.removeEventListener('mousemove', move);
+      canvas.removeEventListener('mousemove', mouseMove);
       canvas.removeEventListener('mouseleave', leave);
       canvas.removeEventListener('touchmove', touch);
       canvas.removeEventListener('touchend', leave);
