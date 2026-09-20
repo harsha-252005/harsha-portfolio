@@ -171,17 +171,24 @@ export default function GamePortrait() {
       pointer.current.active = false;
       pointerTarget.current = { x: -1000, y: -1000 };
     };
-    const resetFromOutsideTap = (event) => {
-      if (event.target === canvas) return;
+    const resetPortrait = () => {
       leave();
-      // An intentional tap on surrounding empty space restores the exact
-      // portrait immediately instead of waiting for particle physics to fade.
       particles.current.forEach((particle) => {
         particle.x = particle.targetX;
         particle.y = particle.targetY;
         particle.vx = 0;
         particle.vy = 0;
       });
+    };
+    const resetFromOutsideTap = (event) => {
+      if (event.target === canvas) return;
+      // An intentional tap on surrounding empty space restores the exact
+      // portrait immediately instead of waiting for particle physics to fade.
+      resetPortrait();
+    };
+    const resetFromOutsideTouch = (event) => {
+      if (event.target === canvas || canvas.contains(event.target)) return;
+      resetPortrait();
     };
     const touch = (event) => {
       if (event.touches[0]) move(event.touches[0]);
@@ -192,6 +199,7 @@ export default function GamePortrait() {
     canvas.addEventListener('touchmove', touch, { passive: false });
     canvas.addEventListener('touchend', leave);
     document.addEventListener('pointerdown', resetFromOutsideTap);
+    document.addEventListener('touchstart', resetFromOutsideTouch, { passive: true });
     render();
     return () => {
       cancelAnimationFrame(animationFrame);
@@ -200,6 +208,7 @@ export default function GamePortrait() {
       canvas.removeEventListener('touchmove', touch);
       canvas.removeEventListener('touchend', leave);
       document.removeEventListener('pointerdown', resetFromOutsideTap);
+      document.removeEventListener('touchstart', resetFromOutsideTouch);
     };
   }, [ready, size]);
 
