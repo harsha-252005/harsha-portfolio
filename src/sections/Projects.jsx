@@ -36,7 +36,7 @@ export default function Projects() {
 
     <ul className="software-grid">{projects.map((project) => <li className="software-card" key={project.title}>
       <div className="software-card-top"><FaFolderOpen className="software-folder" aria-hidden="true" /><div className="software-links"><a href={project.github} target="_blank" rel="noreferrer" aria-label={`${project.title} source code`}><FaGithub /></a><a href={project.github} target="_blank" rel="noreferrer" aria-label={`Open ${project.title}`}><FaExternalLinkAlt /></a></div></div>
-      <h3>{project.title}</h3><p>{project.description}</p><span className="software-tech">{project.tech}</span>
+      <h3>{project.title}</h3><a className="software-card-image" href={project.github} target="_blank" rel="noreferrer" aria-label={`Open ${project.title}`}><img src={project.image} alt={`${project.title} preview`} /></a><p>{project.description}</p><span className="software-tech">{project.tech}</span>
     </li>)}</ul>
   </div></section>;
 }

@@ -43,6 +43,7 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
 .software-card h3 { margin:0 0 8px; color:#ccd6f6; font:700 27px/1.1 'NTR',sans-serif; }
 .software-card p { margin:0; color:#8892b0; font:18px/1.35 'NTR',sans-serif; }
 .software-tech { margin-top:auto; padding-top:26px; color:#8892b0; font:16px/1.2 'NTR',sans-serif; }
+.software-card-image { display:none; }
 .contact-section { padding:80px 0; background:#0a192f; }.contact-shell { width:calc(100% - 300px); max-width:1500px; margin:0 auto; }
 .contact-heading { display:flex; align-items:center; margin-bottom:48px; }.contact-heading h2 { margin:0; color:#ccd6f6; font:700 58px/1 'NTR',sans-serif; }.contact-heading span { width:450px; height:1px; margin-left:30px; background:#233554; }
 .contact-layout { display:grid; grid-template-columns:minmax(280px,.8fr) minmax(480px,1.2fr); gap:100px; align-items:start; }.contact-copy { padding-top:7px; color:#8892b0; font:24px/1.5 'NTR',sans-serif; }.contact-copy p { margin:0 0 20px; }.contact-copy > a { color:#64ffda; font:700 23px/1.2 'NTR',sans-serif; text-decoration:none; }.contact-copy > a:hover { color:#ccd6f6; }
@@ -108,13 +109,50 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
 @media (max-width:900px) { .software-section { padding-left:32px; padding-right:32px; }.software-shell { width:100%; }.software-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.software-slide-copy { margin-left:-10%; }.contact-section { padding-left:32px; padding-right:32px; }.contact-shell { width:100%; }.contact-layout { grid-template-columns:1fr; gap:35px; } }
 @media (max-width:767px) { .software-section { padding-left:24px; padding-right:24px; }.software-shell { width:100%; } }
 @media (max-width:640px) { .software-section { padding-top:60px; padding-bottom:60px; }.software-heading { flex-wrap:wrap; padding-bottom:20px; }.software-heading h2 { font-size:32px; }.software-heading > span { display:none; }.software-heading a { width:100%; margin:5px 0 0; }.software-carousel { height:410px; margin-bottom:40px; border-radius:16px; }.software-slide-copy { width:72%; margin:0; }.software-slide-copy h3 { font-size:38px; }.software-slide-copy p { font-size:18px; }.software-slide-links { gap:14px; }.software-carousel-control { width:36px; height:36px; }.software-carousel-control--prev { left:8px; }.software-carousel-control--next { right:8px; }.software-grid { grid-template-columns:1fr; gap:16px; }.software-card { min-height:260px; padding:26px; } }
-/* The desktop hero intentionally fills most of the screen.  On a phone that
-   left a large, empty panel beneath the CTA, so let its height follow the
-   stacked content instead. */
-@media (max-width:768px) { .hero-section { min-height:0; padding:94px 24px 64px; }.hero-layout { flex-direction:column; gap:18px; }.hero-portrait { flex-shrink:0; }.hero-block { width:100%; max-width:440px; align-items:center; text-align:center; }.hero-title { font-size:clamp(42px,11vw,56px); line-height:1.02; }.hero-description { max-width:430px; padding:5px 0 26px; font-size:17px; line-height:1.5; text-align:center; }.hero-contact { min-height:48px; padding:12px 30px; } }
+/* Match the reference's deliberately centered, full first-screen mobile rhythm. */
+@media (max-width:768px) { .hero-section { min-height:80vh; min-height:80dvh; padding:20px 24px; }.hero-layout { flex-direction:column; gap:20px; }.hero-portrait { flex-shrink:0; }.hero-block { max-width:100%; align-items:center; text-align:center; }.hero-title { font-size:56px; }.hero-description { padding-top:4px; padding-bottom:24px; font-size:16px; line-height:1.4; text-align:center; } }
 @media (max-width:767px) { .experience-section { padding:78px 24px; }.experience-shell { width:100%; }.experience-heading { margin-bottom:42px; }.experience-heading h2 { font-size:32px; }.experience-heading span { margin-top:27px; margin-left:20px; }.experience-layout { grid-template-columns:1fr; gap:24px; }.experience-company { display:flex; min-height:0; padding:0; border-right:0; border-bottom:1px solid #233554; }.experience-company-active { margin:0 0 -1px; padding:0 0 12px; border-right:0; border-bottom:3px solid #64ffda; }.experience-entry { padding:0; }.experience-date { font-size:15px; margin:12px 0 25px; }.experience-entry ul { gap:18px; font-size:17px; line-height:1.7; }.experience-entry li { padding-left:25px; } }
 @media (max-width:767px) { .contact-section { padding:70px 24px; }.contact-shell { width:100%; }.contact-heading { margin-bottom:34px; }.contact-heading h2 { font-size:42px; }.contact-heading span { width:80px; margin-left:18px; }.contact-layout { gap:28px; }.contact-copy { font-size:20px; }.contact-form { padding:24px; } }
 @media (max-width:767px) { .game-portrait { min-height:0; order:-1; } .game-portrait canvas { width:clamp(220px,66vw,280px); } .about-photo { justify-self:start; } }
 @media (max-width:640px) { .game-hud { grid-template-columns:1fr; gap:5px; } .game-hud small { grid-column:auto; } }
 @media (max-width:640px) { .snap-section { padding:84px 24px; } .section-heading::after { width:48px; margin-left:10px; } }
 @media (max-width:480px) { .hero-section { padding:86px 16px 52px; }.hero-layout { gap:14px; }.hero-title { font-size:clamp(38px,11vw,44px); }.hero-description { max-width:350px; padding-bottom:22px; font-size:15px; line-height:1.48; }.hero-contact { padding:11px 26px; font-size:15px; }.game-portrait canvas { width:clamp(210px,68vw,250px); }.about-section,.experience-section,.software-section,.contact-section { padding-left:16px; padding-right:16px; }.about-heading h2,.contact-heading h2 { font-size:38px; }.about-heading span,.contact-heading span { width:44px; }.experience-heading h2,.software-heading h2 { font-size:30px; }.experience-entry h3 { font-size:25px; }.experience-entry ul { font-size:16px; }.software-carousel { height:360px; }.software-slide-copy { width:68%; }.software-slide-copy h3 { font-size:32px; }.software-slide-copy p { font-size:16px; }.software-slide-links { flex-wrap:wrap; gap:10px 16px; margin-top:20px; }.software-slide-links a { font-size:15px; }.software-card { padding:22px; }.contact-form { padding:20px; }.contact-form input,.contact-form textarea { font-size:17px; }.contact-form button { width:100%; }.contact-socials { margin-top:20px; } }
+
+/* Gazi-style phone cards: each project is a separate, readable card with its own preview. */
+@media (max-width:640px) {
+  .software-heading h2 { font-size:38px; }
+  .software-carousel { display:none; }
+  .software-grid { grid-template-columns:1fr; gap:20px; }
+  .software-card { min-height:0; padding:32px 28px; border-radius:16px; }
+  .software-card-top { margin-bottom:18px; }
+  .software-card h3 { margin-bottom:10px; font-size:32px; }
+  .software-card-image { display:block; width:100%; margin:2px 0 22px; overflow:hidden; border-radius:12px; box-shadow:0 4px 12px rgba(2,12,27,.45); }
+  .software-card-image img { display:block; width:100%; aspect-ratio:1.78; object-fit:cover; }
+  .software-card p { font-size:21px; line-height:1.55; }
+  .software-tech { margin-top:0; padding-top:38px; font-size:17px; }
+}
+
+@media (max-width:767px) {
+  .experience-section { padding-top:60px; padding-bottom:60px; }
+  .experience-heading { margin-bottom:38px; }
+  .experience-heading h2 { font-size:38px; }
+  .experience-layout { gap:28px; }
+  .experience-company { width:100%; }
+  .experience-company-active { min-width:120px; padding:0 20px 12px; text-align:center; }
+  .experience-entry { padding:0 8px; }
+  .experience-entry ul { gap:24px; font-size:18px; line-height:1.75; }
+}
+
+@media (max-width:480px) {
+  .hero-section { min-height:80vh; min-height:80dvh; padding:16px; }
+  .hero-layout { gap:16px; }
+  .hero-title { font-size:40px; }
+  .hero-description { max-width:340px; padding-bottom:20px; font-size:14px; line-height:1.4; }
+  .hero-contact { padding:8px 20px; font-size:14px; }
+  .game-portrait canvas { width:min(230px,calc(100vw - 80px)); }
+  .software-card { padding:26px 24px; }
+  .software-card h3 { font-size:29px; }
+  .software-card p { font-size:19px; }
+  .experience-heading h2 { font-size:34px; }
+  .experience-entry { padding:0; }
+}
