@@ -190,6 +190,17 @@ export default function GamePortrait() {
       if (event.target === canvas || canvas.contains(event.target)) return;
       resetPortrait();
     };
+    const resetFromCanvasBlankSpace = (event) => {
+      const point = event.touches?.[0] || event;
+      if (!point) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (point.clientX - rect.left) * (size / rect.width);
+      const y = (point.clientY - rect.top) * (size / rect.height);
+      // A tap near the rendered face keeps the portrait interactive. A tap on
+      // the transparent/black part of the canvas is an explicit reset.
+      const isOnFace = particles.current.some((particle) => Math.hypot(particle.targetX - x, particle.targetY - y) < 24);
+      if (!isOnFace) resetPortrait();
+    };
     const touch = (event) => {
       if (event.touches[0]) move(event.touches[0]);
       if (event.cancelable) event.preventDefault();
@@ -198,6 +209,7 @@ export default function GamePortrait() {
     canvas.addEventListener('mouseleave', leave);
     canvas.addEventListener('touchmove', touch, { passive: false });
     canvas.addEventListener('touchend', leave);
+    canvas.addEventListener('touchstart', resetFromCanvasBlankSpace, { passive: true });
     document.addEventListener('pointerdown', resetFromOutsideTap);
     document.addEventListener('touchstart', resetFromOutsideTouch, { passive: true });
     render();
@@ -207,6 +219,7 @@ export default function GamePortrait() {
       canvas.removeEventListener('mouseleave', leave);
       canvas.removeEventListener('touchmove', touch);
       canvas.removeEventListener('touchend', leave);
+      canvas.removeEventListener('touchstart', resetFromCanvasBlankSpace);
       document.removeEventListener('pointerdown', resetFromOutsideTap);
       document.removeEventListener('touchstart', resetFromOutsideTouch);
     };
