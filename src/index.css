@@ -163,6 +163,10 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
   .software-section,
   .experience-section { padding:60px 34px; }
 
+  /* Preserve the wider breathing room between Experience and Software that
+     the mobile reference uses. */
+  .software-section { padding-top:112px; }
+
   .software-heading,
   .experience-heading { width:auto; margin-bottom:0; padding-bottom:20px; }
   .software-heading h2,
