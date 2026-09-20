@@ -14,6 +14,6 @@ export default function About() {
       <p>Here are some technologies I have been working with:</p>
       <ul>{technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
       <p>I enjoy turning real ideas into polished digital products—especially where intuitive interfaces meet scalable Java and Spring Boot backends.</p>
-    </div><button type="button" className={`about-photo${isFloating ? ' about-photo--floating' : ''}`} onClick={floatPhoto} onAnimationEnd={() => setIsFloating(false)} aria-label="Animate Harshvardhan's profile photo"><img src="/harshvardhan-profile.jpeg" alt="Harshvardhan R"/></button></div>
+    </div><button type="button" className={`about-photo${isFloating ? ' about-photo--floating' : ''}`} onClick={floatPhoto} onAnimationEnd={() => setIsFloating(false)} aria-label="Animate Harshvardhan's profile photo"><img src="/new-profile.jpg" alt="Harshvardhan R"/></button></div>
   </div></section>;
 }
