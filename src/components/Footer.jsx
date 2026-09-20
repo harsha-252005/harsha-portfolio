@@ -1,0 +1,1 @@
+export default function Footer(){return <footer className="pb-8 text-center font-mono text-[11px] text-[#8892b0]"><p>Built and designed by Harshvardhan R.</p><p className="mt-1">© {new Date().getFullYear()}</p></footer>}

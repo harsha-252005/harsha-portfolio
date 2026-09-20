@@ -1,0 +1,4 @@
+import { motion } from 'framer-motion';
+import { HiMail } from 'react-icons/hi';
+import GamePortrait from '../components/GamePortrait';
+export default function Hero() { return <section id="home" className="hero-section grid-glow"><motion.div initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.65}} className="hero-shell"><div className="hero-layout"><div className="hero-portrait"><GamePortrait/></div><div className="hero-block"><h1 className="hero-title">hi, <span>Harsha</span> here.<i/></h1><p className="hero-description">Full-stack developer and IT student in Coimbatore. I build reliable applications with Java and Spring Boot by day, and craft responsive React experiences wherever curiosity takes me.</p><a className="mint-button hero-contact" href="#contact"><HiMail size={24}/> Say hi!</a></div></div></motion.div></section>; }
