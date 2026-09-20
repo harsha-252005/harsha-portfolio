@@ -185,3 +185,27 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
   .experience-date { font-size:15px; margin:12px 0 25px; }
   .experience-entry ul { gap:16px; font-size:18px; line-height:1.7; }
 }
+
+/* Apply the same Gazi mobile section frame to About and Contact only. */
+@media (max-width:640px) {
+  .about-section,
+  .contact-section { padding:60px 34px; }
+
+  .about-heading,
+  .contact-heading { width:auto; gap:0; margin-bottom:20px; }
+  .about-heading h2,
+  .contact-heading h2 { font-size:32px; }
+  .about-heading span,
+  .contact-heading span { display:none; }
+
+  .about-copy { font-size:18px; line-height:1.6; text-align:justify; }
+  .about-copy strong,
+  .about-copy a { font-size:17px; }
+  .about-copy ul { grid-template-columns:1fr; font-size:18px; }
+  .about-photo { display:none; }
+
+  .contact-layout { gap:28px; }
+  .contact-copy { padding-top:0; font-size:18px; line-height:1.6; }
+  .contact-copy > a { font-size:18px; }
+  .contact-form { padding:24px; }
+}
