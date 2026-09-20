@@ -171,6 +171,18 @@ export default function GamePortrait() {
       pointer.current.active = false;
       pointerTarget.current = { x: -1000, y: -1000 };
     };
+    const resetFromOutsideTap = (event) => {
+      if (event.target === canvas) return;
+      leave();
+      // An intentional tap on surrounding empty space restores the exact
+      // portrait immediately instead of waiting for particle physics to fade.
+      particles.current.forEach((particle) => {
+        particle.x = particle.targetX;
+        particle.y = particle.targetY;
+        particle.vx = 0;
+        particle.vy = 0;
+      });
+    };
     const touch = (event) => {
       if (event.touches[0]) move(event.touches[0]);
       if (event.cancelable) event.preventDefault();
@@ -179,6 +191,7 @@ export default function GamePortrait() {
     canvas.addEventListener('mouseleave', leave);
     canvas.addEventListener('touchmove', touch, { passive: false });
     canvas.addEventListener('touchend', leave);
+    document.addEventListener('pointerdown', resetFromOutsideTap);
     render();
     return () => {
       cancelAnimationFrame(animationFrame);
@@ -186,6 +199,7 @@ export default function GamePortrait() {
       canvas.removeEventListener('mouseleave', leave);
       canvas.removeEventListener('touchmove', touch);
       canvas.removeEventListener('touchend', leave);
+      document.removeEventListener('pointerdown', resetFromOutsideTap);
     };
   }, [ready, size]);
 
