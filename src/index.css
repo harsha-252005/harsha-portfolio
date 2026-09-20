@@ -156,3 +156,32 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
   .experience-heading h2 { font-size:34px; }
   .experience-entry { padding:0; }
 }
+
+/* Phone-only section framing matched to the Gazi reference (24px app inset
+   plus 10px content inset). The hero deliberately has no rules here. */
+@media (max-width:640px) {
+  .software-section,
+  .experience-section { padding:60px 34px; }
+
+  .software-heading,
+  .experience-heading { width:auto; margin-bottom:0; padding-bottom:20px; }
+  .software-heading h2,
+  .experience-heading h2 { font-size:32px; }
+  .software-heading > span,
+  .experience-heading span { display:none; }
+  .software-heading a { margin:5px 0 0; font-size:18px; }
+
+  .software-grid { gap:20px; }
+  .software-card { padding:32px 28px; }
+  .software-card h3 { font-size:24px; }
+  .software-card p { font-size:18px; line-height:1.35; }
+  .software-tech { padding-top:40px; font-size:16px; }
+
+  .experience-heading { margin-bottom:42px; }
+  .experience-layout { gap:24px; }
+  .experience-company-active { min-width:120px; padding:0 20px 12px; text-align:center; }
+  .experience-entry { padding:0; }
+  .experience-entry h3 { font-size:22px; }
+  .experience-date { font-size:15px; margin:12px 0 25px; }
+  .experience-entry ul { gap:16px; font-size:18px; line-height:1.7; }
+}
