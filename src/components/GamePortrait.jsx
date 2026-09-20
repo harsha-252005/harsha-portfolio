@@ -114,6 +114,7 @@ export default function GamePortrait() {
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     let animationFrame;
+    let touchStartedOnFace = false;
 
     const render = () => {
       animationFrame = requestAnimationFrame(render);
@@ -196,14 +197,27 @@ export default function GamePortrait() {
       resetPortrait();
     };
     const touch = (event) => {
+      if (window.innerWidth <= 480 && !touchStartedOnFace) return;
       if (event.touches[0]) move(event.touches[0]);
       if (event.cancelable) event.preventDefault();
+    };
+    const beginTouch = (event) => {
+      const touchPoint = event.touches[0];
+      if (!touchPoint) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (touchPoint.clientX - rect.left) * (size / rect.width);
+      const y = (touchPoint.clientY - rect.top) * (size / rect.height);
+      // Only a touch that begins directly on a rendered glyph may disturb the
+      // face. This prevents tiny browser touch movements in blank canvas areas
+      // from undoing an intended reset.
+      touchStartedOnFace = particles.current.some((particle) => Math.hypot(particle.targetX - x, particle.targetY - y) < 10);
+      resetFromCanvasBlankSpace();
     };
     canvas.addEventListener('mousemove', move);
     canvas.addEventListener('mouseleave', leave);
     canvas.addEventListener('touchmove', touch, { passive: false });
     canvas.addEventListener('touchend', leave);
-    canvas.addEventListener('touchstart', resetFromCanvasBlankSpace, { passive: true });
+    canvas.addEventListener('touchstart', beginTouch, { passive: true });
     document.addEventListener('pointerdown', resetFromOutsideTap);
     document.addEventListener('touchstart', resetFromOutsideTouch, { passive: true });
     render();
@@ -213,7 +227,7 @@ export default function GamePortrait() {
       canvas.removeEventListener('mouseleave', leave);
       canvas.removeEventListener('touchmove', touch);
       canvas.removeEventListener('touchend', leave);
-      canvas.removeEventListener('touchstart', resetFromCanvasBlankSpace);
+      canvas.removeEventListener('touchstart', beginTouch);
       document.removeEventListener('pointerdown', resetFromOutsideTap);
       document.removeEventListener('touchstart', resetFromOutsideTouch);
     };
