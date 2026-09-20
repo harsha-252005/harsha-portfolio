@@ -191,15 +191,9 @@ export default function GamePortrait() {
       resetPortrait();
     };
     const resetFromCanvasBlankSpace = (event) => {
-      const point = event.touches?.[0] || event;
-      if (!point) return;
-      const rect = canvas.getBoundingClientRect();
-      const x = (point.clientX - rect.left) * (size / rect.width);
-      const y = (point.clientY - rect.top) * (size / rect.height);
-      // A tap near the rendered face keeps the portrait interactive. A tap on
-      // the transparent/black part of the canvas is an explicit reset.
-      const isOnFace = particles.current.some((particle) => Math.hypot(particle.targetX - x, particle.targetY - y) < 24);
-      if (!isOnFace) resetPortrait();
+      // Mobile has no hover state. Reset first on every touch; a following
+      // drag still activates the existing touchmove particle interaction.
+      resetPortrait();
     };
     const touch = (event) => {
       if (event.touches[0]) move(event.touches[0]);
