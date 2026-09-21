@@ -130,6 +130,20 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
   .certification-verify { margin-top:9px; }.certification-skills { margin-top:13px; }
   .contact-layout { gap:70px; }.contact-copy { font-size:20px; }.contact-copy > a { font-size:20px; }
   .contact-form { gap:12px; padding:24px; }.contact-form label { font-size:17px; }.contact-form input,.contact-form textarea { font-size:17px; padding:9px 12px; }.contact-form textarea { min-height:90px; }
+
+  /* Certifications contain more metadata than a project card, so make this
+     section denser while keeping every issued credential detail visible. */
+  .certifications-section { padding-top:40px; padding-bottom:40px; }
+  .certifications-heading { margin-bottom:20px; }
+  .certification-image { aspect-ratio:2.65; padding:8px; }
+  .certification-content { padding:16px 20px; }
+  .certification-icon { top:16px; right:20px; font-size:20px; }
+  .certification-issuer,.certification-type,.certification-date,.certification-detail { font-size:13px; line-height:1.25; }
+  .certification-card h3 { margin:4px 0 5px; font-size:22px; }
+  .certification-detail { min-height:0; margin-top:7px; }
+  .certification-verify { margin-top:7px; font-size:11px; }
+  .certification-skills { gap:5px; margin-top:9px; }
+  .certification-skills li { padding:3px 7px; font-size:10px; }
 }
 @media (max-width:767px) { .about-section { padding:70px 24px; overflow:visible; }.about-shell { width:100%; }.about-heading { margin-bottom:34px; gap:18px; }.about-heading h2 { font-size:32px; }.about-heading span { width:80px; }.about-layout { display:block; }.about-copy { max-width:none; font-size:18px; line-height:1.75; text-align:left; }.about-copy strong,.about-copy a { font-size:18px; }.about-copy ul { font-size:14px; gap:8px 20px; margin:25px 0; }.about-photo { width:min(100%,300px); height:auto; margin:32px auto 0; }.about-photo img { height:auto; } }
 @media (max-width:1024px) { .hero-layout { gap:3vw; }.hero-title { font-size:72px; }.hero-description { font-size:20px; } }
