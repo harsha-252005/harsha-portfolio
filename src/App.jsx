@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar';
-import GameMode from './components/GameMode';
+import GameMode from './components/SiteGameMode';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
 import About from './sections/About';
