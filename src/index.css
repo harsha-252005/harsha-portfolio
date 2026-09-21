@@ -284,12 +284,12 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
 /* A narrow desktop window (for example, split screen) keeps the hero's
    phone-style vertical composition without changing any other section. */
 @media (min-width:769px) and (max-width:1400px) and (max-aspect-ratio:4/3) {
-  .hero-section { min-height:80vh; padding:28px 24px; }
-  .hero-layout { flex-direction:column; gap:20px; }
+  .hero-section { min-height:80vh; padding:12px 24px 24px; }
+  .hero-layout { flex-direction:column; gap:10px; }
   .hero-portrait { flex-shrink:0; }
   .hero-block { max-width:100%; align-items:center; text-align:center; }
-  .hero-title { font-size:56px; }
-  .hero-description { max-width:620px; padding:4px 0 24px; font-size:16px; line-height:1.4; text-align:center; }
+  .hero-title { font-size:48px; }
+  .hero-description { max-width:620px; padding:4px 0 20px; font-size:15px; line-height:1.4; text-align:center; }
   .game-portrait { min-height:0; }
-  .game-portrait canvas { width:clamp(220px,38vw,280px); }
+  .game-portrait canvas { width:220px; }
 }
