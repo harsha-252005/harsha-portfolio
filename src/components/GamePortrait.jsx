@@ -41,8 +41,8 @@ function particlesFromImage(image, size) {
   // it, the source crop starts at the first hair pixel and gives the head a
   // visibly flat, cut-off top.
   const splitView = isDesktopSplitView();
-  const cropTop = splitView ? Math.max(0, top - Math.round(cropWidth * 0.14)) : top;
-  const cropHeight = Math.min(bottom - cropTop + 1, Math.round(cropWidth * (splitView ? 1.5 : 1.36)));
+  const cropTop = splitView ? Math.max(0, top - Math.round(cropWidth * 0.06)) : top;
+  const cropHeight = Math.min(bottom - cropTop + 1, Math.round(cropWidth * (splitView ? 1.42 : 1.36)));
   // Keep the approved compact mobile silhouette; only particle density changes
   // below so its facial features remain clear at that size.
   const scale = window.innerWidth <= 480 || splitView ? 0.62 : 0.92;
