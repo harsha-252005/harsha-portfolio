@@ -55,10 +55,11 @@ function particlesFromImage(image, size) {
   context.drawImage(image, left, cropTop, cropWidth, cropHeight, (size - width) / 2, (size - height) / 2, width, height);
 
   const pixels = context.getImageData(0, 0, size, size).data;
-  const fontSize = window.innerWidth <= 480 || size <= 280 ? 5 : 7;
+  const compactTouchViewport = window.innerWidth <= 480 && !splitView;
+  const fontSize = compactTouchViewport || size <= 280 ? 5 : 7;
   const columnGap = fontSize * 0.7;
   const rowGap = fontSize * 1.1;
-  const alphaThreshold = window.innerWidth <= 480 ? 210 : 128;
+  const alphaThreshold = compactTouchViewport ? 210 : 128;
   // Keep the scatter-in entrance on every screen size. The mobile render then
   // settles without the desktop's extra post-entry breathing motion.
   const entranceSpread = size;
@@ -132,7 +133,7 @@ export default function GamePortrait() {
       context.clearRect(0, 0, size, size);
       if (!ready) return;
       const elapsed = (performance.now() - startTime.current) / 1000;
-      const isMobileViewport = window.innerWidth <= 480;
+      const isMobileViewport = window.innerWidth <= 480 && !isDesktopSplitView();
       pointer.current.x += (pointerTarget.current.x - pointer.current.x) * 0.15;
       pointer.current.y += (pointerTarget.current.y - pointer.current.y) * 0.15;
       particles.current.forEach((particle) => {
