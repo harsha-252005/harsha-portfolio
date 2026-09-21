@@ -63,36 +63,40 @@ export default function GameMode() {
         { x: 0, y: h - 35, width: w },
       ];
       points = platforms.slice(1, 6).map((platform, index) => ({ x: platform.x + platform.width / 2, y: platform.y - 19, phase: index * 1.5, collected: false }));
-      player.x = 82; player.y = h - 168; player.vx = 0; player.vy = 0;
+      // Spawn on the visible ground so movement works immediately after Game
+      // Mode is enabled instead of waiting for an initial landing frame.
+      player.x = 82; player.y = h - 67; player.vx = 0; player.vy = 0; player.grounded = true;
       setCollected(0);
     };
     const down = (event) => {
-      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', ' ', 'a', 'd', 'w'].includes(event.key)) event.preventDefault();
-      keys.add(event.key.toLowerCase());
-      if ((event.key === ' ' || event.key === 'ArrowUp' || event.key.toLowerCase() === 'w') && player.grounded) { player.vy = -8; player.grounded = false; }
+      const gameKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'Space', 'KeyA', 'KeyD', 'KeyW'];
+      if (!gameKeys.includes(event.code)) return;
+      event.preventDefault();
+      keys.add(event.code);
+      if (['Space', 'ArrowUp', 'KeyW'].includes(event.code) && player.grounded) { player.vy = -10.5; player.grounded = false; }
     };
-    const up = (event) => keys.delete(event.key.toLowerCase());
+    const up = (event) => keys.delete(event.code);
     const loop = (time) => {
       frame += 1; animation = requestAnimationFrame(loop);
       const w = window.innerWidth, h = window.innerHeight;
       ctx.clearRect(0, 0, w, h);
-      const left = keys.has('arrowleft') || keys.has('a'), right = keys.has('arrowright') || keys.has('d');
-      player.vx += left ? -.35 : right ? .35 : 0; player.vx *= left || right ? .88 : .72; player.vx = Math.max(-3.2, Math.min(3.2, player.vx));
-      player.vy += .34; player.vy = Math.min(player.vy, 9); player.x += player.vx; player.y += player.vy; player.x = Math.max(0, Math.min(w - 30, player.x));
+      const left = keys.has('ArrowLeft') || keys.has('KeyA'), right = keys.has('ArrowRight') || keys.has('KeyD');
+      player.vx += left ? -.48 : right ? .48 : 0; player.vx *= left || right ? .9 : .72; player.vx = Math.max(-4.3, Math.min(4.3, player.vx));
+      player.vy += .42; player.vy = Math.min(player.vy, 10); player.x += player.vx; player.y += player.vy; player.x = Math.max(0, Math.min(w - 30, player.x));
       player.grounded = false;
       platforms.forEach((platform) => {
-        if (player.vy >= 0 && player.x + 26 > platform.x && player.x < platform.x + platform.width && player.y + 32 >= platform.y && player.y + 32 - player.vy < platform.y) { player.y = platform.y - 32; player.vy = 0; player.grounded = true; }
+        if (player.vy >= 0 && player.x + 26 > platform.x && player.x < platform.x + platform.width && player.y + 32 >= platform.y && player.y + 32 - player.vy <= platform.y) { player.y = platform.y - 32; player.vy = 0; player.grounded = true; }
         drawPlatform(ctx, platform);
       });
-      if (player.y > h + 70) { player.x = 82; player.y = h - 168; player.vx = player.vy = 0; }
+      if (player.y > h + 70) { player.x = 82; player.y = h - 67; player.vx = player.vy = 0; player.grounded = true; }
       points.forEach((point) => {
         if (!point.collected && Math.hypot(player.x + 15 - point.x, player.y + 15 - point.y) < 25) { point.collected = true; setCollected((value) => Math.min(POINT_TOTAL, value + 1)); }
         if (!point.collected) drawPoint(ctx, point, time);
       });
       drawPlayer(ctx, player.x, player.y, frame);
     };
-    resize(); window.addEventListener('resize', resize); window.addEventListener('keydown', down); window.addEventListener('keyup', up); animation = requestAnimationFrame(loop);
-    return () => { cancelAnimationFrame(animation); window.removeEventListener('resize', resize); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
+    resize(); window.addEventListener('resize', resize); document.addEventListener('keydown', down, true); document.addEventListener('keyup', up, true); animation = requestAnimationFrame(loop);
+    return () => { cancelAnimationFrame(animation); window.removeEventListener('resize', resize); document.removeEventListener('keydown', down, true); document.removeEventListener('keyup', up, true); };
   }, [active]);
 
   return <div className="desktop-game-mode">
