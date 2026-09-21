@@ -63,15 +63,16 @@ export default function SiteGameMode() {
       const navbar = document.querySelector('nav');
       const top = (navbar?.getBoundingClientRect().bottom || 76) + window.scrollY;
       const pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-      const usableWidth = Math.max(220, window.innerWidth - 178);
-      const lanes = Array.from({ length: 6 }, (_, index) => 40 + (usableWidth * index) / 5);
+      // A compact repeating staircase keeps the route forgiving, even on a
+      // very wide desktop. Content blocks remain extra landing platforms.
+      const lanes = [38, 175, 312, 175, 38, 175];
       const start = { x: 38, docY: top + 160, width: 150 };
       route = [start];
-      for (let y = start.docY + 145, index = 0; y < pageHeight - 90; y += 145, index += 1) route.push({ x: lanes[index % lanes.length], docY: y, width: 138 });
-      points = ['about', 'skills', 'projects', 'certifications', 'contact'].map((id, index) => {
+      for (let y = start.docY + 125, index = 0; y < pageHeight - 90; y += 125, index += 1) route.push({ x: lanes[index % lanes.length], docY: y, width: 164 });
+      points = ['home', 'about', 'skills', 'projects', 'certifications'].map((id, index) => {
         const section = document.getElementById(id);
         const rect = section?.getBoundingClientRect();
-        const target = (rect ? rect.top + window.scrollY : start.docY + (index + 2) * 700) + 180;
+        const target = (rect ? rect.top + window.scrollY : start.docY + (index + 2) * 700) + (index === 0 ? 320 : 180);
         const platform = route.reduce((nearest, item) => Math.abs(item.docY - target) < Math.abs(nearest.docY - target) ? item : nearest, route[0]);
         return { x: platform.x + platform.width / 2, docY: platform.docY - 20, phase: index * 1.5, collected: false };
       });
@@ -88,7 +89,7 @@ export default function SiteGameMode() {
       const gameKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'Space', 'KeyA', 'KeyD', 'KeyW'];
       if (!gameKeys.includes(event.code)) return;
       event.preventDefault(); keys.add(event.code);
-      if (['Space', 'ArrowUp', 'KeyW'].includes(event.code) && player.grounded && state === 'playing') { player.vy = -11.8; player.grounded = false; }
+      if (['Space', 'ArrowUp', 'KeyW'].includes(event.code) && player.grounded && state === 'playing') { player.vy = -12.5; player.grounded = false; }
     };
     const up = (event) => keys.delete(event.code);
     const loop = (time) => {
@@ -107,7 +108,6 @@ export default function SiteGameMode() {
         const screenY = player.docY - scrollY;
         if (screenY > height + 100) { state = 'game-over'; setStatus('game-over'); }
         if (screenY > height * 0.68 && scrollY < document.documentElement.scrollHeight - height) window.scrollTo(0, scrollY + Math.min(7, screenY - height * 0.68));
-        if (screenY < height * 0.22 && scrollY > 0) window.scrollTo(0, Math.max(0, scrollY - 5));
       }
       const renderScrollY = window.scrollY;
       platforms.forEach((platform) => { const y = platform.docY - renderScrollY; if (y > -20 && y < height + 20) drawPlatform(ctx, platform, y, dynamic.includes(platform)); });
@@ -129,6 +129,6 @@ export default function SiteGameMode() {
 
   return <div className="desktop-game-mode">
     <button className={`desktop-game-toggle${active ? ' is-active' : ''}`} type="button" onClick={() => { setActive((value) => !value); setStatus('playing'); }}><i /> Game mode</button>
-    {active && <><div className="desktop-game-help">← → / A D move · Space jump · collect all five points</div><div className="desktop-game-score"><i /> {collected} / {POINT_TOTAL}</div><canvas ref={canvasRef} className="desktop-game-canvas" aria-label="Portfolio platform game: collect five points" />{status !== 'playing' && <div className="desktop-game-message"><strong>{status === 'complete' ? 'Run complete!' : 'Game over'}</strong><span>{status === 'complete' ? 'You found all five points.' : 'You fell into empty space.'}</span><button type="button" onClick={() => { setStatus('playing'); setRun((value) => value + 1); }}>Play again</button></div>}</>}
+    {active && <><div className="desktop-game-help">← → / A D move · Space jump · mouse wheel scrolls freely</div><div className="desktop-game-score"><i /> {collected} / {POINT_TOTAL}</div><canvas ref={canvasRef} className="desktop-game-canvas" aria-label="Portfolio platform game: collect five points" />{status !== 'playing' && <div className="desktop-game-message"><strong>{status === 'complete' ? 'You’re the winner!' : 'Game over'}</strong><span>{status === 'complete' ? 'You found all five points.' : 'You fell into empty space.'}</span><button type="button" onClick={() => { setStatus('playing'); setRun((value) => value + 1); }}>Play again</button></div>}</>}
   </div>;
 }
