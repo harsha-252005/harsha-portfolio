@@ -300,9 +300,9 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
   .hero-section { min-height:80vh; padding:8px 16px 20px; }
   .hero-layout { gap:8px; }
   .hero-block { align-items:center; text-align:center; }
-  .hero-title { font-size:34px; }
-  .hero-description { max-width:390px; padding:3px 0 17px; font-size:14px; line-height:1.4; text-align:center; }
+  .hero-title { font-size:40px; }
+  .hero-description { max-width:390px; padding:25px 0 17px; font-size:14px; line-height:1.4; text-align:center; }
   .hero-contact { padding:8px 20px; font-size:14px; }
   .game-portrait { min-height:0; }
-  .game-portrait canvas { width:165px; }
+  .game-portrait canvas { width:120px; }
 }
