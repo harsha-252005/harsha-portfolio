@@ -17,7 +17,7 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
 .site-link { color:var(--mint); transition:color .2s ease, transform .2s ease; }.site-link:hover { color:var(--white); transform:translateY(-2px); }
 .mint-button { display:inline-flex; align-items:center; gap:10px; background:transparent; border:1px solid var(--mint); border-radius:4px; color:var(--mint); padding:16px 22px; font:500 13px 'DM Mono',monospace; text-decoration:none; transition:background .2s ease, transform .2s ease; }.mint-button:hover { background:rgba(100,255,218,.1); transform:translateY(-3px); }
 .nav-link { color:var(--light-slate); font:500 12px 'DM Mono',monospace; text-decoration:none; transition:color .2s ease; }.nav-link:hover { color:var(--mint); }
-.brand-name { color:#ccd6f6; font:700 27px/1 'NTR',sans-serif; letter-spacing:0; text-decoration:none; }
+.brand-name { color:#ccd6f6; font:700 24px/1 'NTR',sans-serif; letter-spacing:0; text-decoration:none; }
 .project-card { background:var(--navy-light); border-radius:5px; box-shadow:0 10px 30px -15px rgba(2,12,27,.7); transition:transform .25s ease, box-shadow .25s ease; }.project-card:hover { transform:translateY(-7px); box-shadow:0 20px 30px -15px rgba(2,12,27,.8); }
 .software-section { padding:80px 0; background:var(--navy); }
 .software-shell { width:calc(100% - 300px); max-width:1500px; margin:0 auto; }
@@ -109,6 +109,10 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
 /* Desktop-only compact scale: primary content fits a normal screen height.
    The hero and all phone breakpoints remain unchanged. */
 @media (min-width:641px) {
+  /* Keep each anchor title below the fixed navigation rather than clipped
+     beneath it when a desktop nav link is selected. */
+  #about,#skills,#certifications,#contact { scroll-margin-top:96px; }
+  .hero-section { min-height:100vh; }
   .about-section,.experience-section,.certifications-section,.contact-section { padding-top:56px; padding-bottom:56px; }
   .about-heading,.experience-heading,.certifications-heading,.contact-heading { margin-bottom:30px; }
   .about-heading h2,.contact-heading h2 { font-size:46px; }
