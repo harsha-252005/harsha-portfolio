@@ -293,3 +293,16 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
   .game-portrait { min-height:0; }
   .game-portrait canvas { width:220px; }
 }
+
+/* Chrome Split View can report a phone-width CSS viewport on a desktop. Use
+   the fine-pointer capability to distinguish that case from a real phone. */
+@media (hover:hover) and (pointer:fine) and (max-width:768px) {
+  .hero-section { min-height:80vh; padding:8px 16px 20px; }
+  .hero-layout { gap:8px; }
+  .hero-block { align-items:center; text-align:center; }
+  .hero-title { font-size:34px; }
+  .hero-description { max-width:390px; padding:3px 0 17px; font-size:14px; line-height:1.4; text-align:center; }
+  .hero-contact { padding:8px 20px; font-size:14px; }
+  .game-portrait { min-height:0; }
+  .game-portrait canvas { width:165px; }
+}
