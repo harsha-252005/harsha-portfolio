@@ -56,10 +56,12 @@ function particlesFromImage(image, size) {
 
   const pixels = context.getImageData(0, 0, size, size).data;
   const compactTouchViewport = window.innerWidth <= 480 && !splitView;
-  const fontSize = compactTouchViewport || size <= 280 ? 5 : 7;
+  // The small Split View footprint needs denser samples than the large desktop
+  // canvas; otherwise downscaling loses the eyes, jaw, and hair detail.
+  const fontSize = compactTouchViewport || splitView || size <= 280 ? 5 : 7;
   const columnGap = fontSize * 0.7;
   const rowGap = fontSize * 1.1;
-  const alphaThreshold = compactTouchViewport ? 210 : 128;
+  const alphaThreshold = compactTouchViewport ? 210 : splitView ? 72 : 128;
   // Keep the scatter-in entrance on every screen size. The mobile render then
   // settles without the desktop's extra post-entry breathing motion.
   const entranceSpread = size;
