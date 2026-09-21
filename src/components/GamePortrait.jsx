@@ -8,6 +8,10 @@ function canvasSize() {
   return 400;
 }
 
+function isDesktopSplitView() {
+  return window.matchMedia('(hover: hover) and (pointer: fine) and (max-width: 768px)').matches;
+}
+
 function particlesFromImage(image, size) {
   const source = document.createElement('canvas');
   source.width = image.width;
@@ -33,17 +37,22 @@ function particlesFromImage(image, size) {
   const cropWidth = right - left + 1;
   // Use a head-and-shoulders crop. The original image is longer than the
   // reference portrait, which otherwise makes the face too small to read.
-  const cropHeight = Math.min(bottom - top + 1, Math.round(cropWidth * 1.36));
+  // Chrome Split View needs a little transparent space above the hair. Without
+  // it, the source crop starts at the first hair pixel and gives the head a
+  // visibly flat, cut-off top.
+  const splitView = isDesktopSplitView();
+  const cropTop = splitView ? Math.max(0, top - Math.round(cropWidth * 0.14)) : top;
+  const cropHeight = Math.min(bottom - cropTop + 1, Math.round(cropWidth * (splitView ? 1.5 : 1.36)));
   // Keep the approved compact mobile silhouette; only particle density changes
   // below so its facial features remain clear at that size.
-  const scale = window.innerWidth <= 480 ? 0.62 : 0.92;
+  const scale = window.innerWidth <= 480 || splitView ? 0.62 : 0.92;
   let height = size * scale;
   let width = height * (cropWidth / cropHeight) * 1.24;
   if (width > size * scale) {
     width = size * scale;
     height = width / ((cropWidth / cropHeight) * 1.28);
   }
-  context.drawImage(image, left, top, cropWidth, cropHeight, (size - width) / 2, (size - height) / 2, width, height);
+  context.drawImage(image, left, cropTop, cropWidth, cropHeight, (size - width) / 2, (size - height) / 2, width, height);
 
   const pixels = context.getImageData(0, 0, size, size).data;
   const fontSize = window.innerWidth <= 480 || size <= 280 ? 5 : 7;
@@ -84,10 +93,11 @@ export default function GamePortrait() {
   const particles = useRef([]);
   const startTime = useRef(0);
   const [size, setSize] = useState(canvasSize);
+  const [viewportVersion, setViewportVersion] = useState(0);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const onResize = () => setSize(canvasSize());
+    const onResize = () => { setSize(canvasSize()); setViewportVersion((version) => version + 1); };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -101,7 +111,7 @@ export default function GamePortrait() {
       startTime.current = performance.now();
       setReady(true);
     };
-  }, [size]);
+  }, [size, viewportVersion]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
