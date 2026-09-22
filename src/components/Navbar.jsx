@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaBars, FaEnvelope, FaGithub, FaLinkedin, FaPen, FaTimes } from 'react-icons/fa';
 
 const resumeUrl = 'https://drive.google.com/file/d/1vpQNw-pPYRVLtFbTjzz7_3waWzstz-QB/view?usp=drivesdk';
-const links = [{ label: 'Home', href: '#home' }, { label: 'About', href: '#about' }, { label: 'Experience', href: '#skills' }, { label: 'Software', href: '#projects' }, { label: 'Resume', href: resumeUrl, external: true }];
+const links = [{ label: 'Home', href: '#home' }, { label: 'About', href: '#about' }, { label: 'Experience', href: '#skills' }, { label: 'Software', href: '#projects' }, { label: 'Resume', href: resumeUrl, external: true }, { label: 'Certification', href: '#certifications' }];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
