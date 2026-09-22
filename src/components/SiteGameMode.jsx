@@ -113,6 +113,7 @@ export default function SiteGameMode() {
         const screenY = player.docY - scrollY;
         if (screenY > height + 100) { state = 'game-over'; setStatus('game-over'); }
         if (screenY > height * 0.68 && scrollY < document.documentElement.scrollHeight - height) window.scrollTo(0, scrollY + Math.min(7, screenY - height * 0.68));
+        if (player.vy < 0 && screenY < height * 0.3 && scrollY > 0) window.scrollTo(0, Math.max(0, scrollY - Math.min(7, height * 0.3 - screenY)));
       }
       const renderScrollY = window.scrollY;
       platforms.forEach((platform) => { const y = platform.docY - renderScrollY; if (y > -20 && y < height + 20) drawPlatform(ctx, platform, y, dynamic.includes(platform)); });
