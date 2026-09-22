@@ -17,7 +17,7 @@ body { margin:0; background:var(--navy); color:var(--light-slate); font-family:'
 .site-link { color:var(--mint); transition:color .2s ease, transform .2s ease; }.site-link:hover { color:var(--white); transform:translateY(-2px); }
 .mint-button { display:inline-flex; align-items:center; gap:10px; background:transparent; border:1px solid var(--mint); border-radius:4px; color:var(--mint); padding:16px 22px; font:500 13px 'DM Mono',monospace; text-decoration:none; transition:background .2s ease, transform .2s ease; }.mint-button:hover { background:rgba(100,255,218,.1); transform:translateY(-3px); }
 .nav-link { color:var(--light-slate); font:500 12px 'DM Mono',monospace; text-decoration:none; transition:color .2s ease; }.nav-link:hover { color:var(--mint); }
-.brand-name { color:#ccd6f6; font:700 24px/1 'NTR',sans-serif; letter-spacing:0; text-decoration:none; }
+.brand-name { color:#ccd6f6; font:700 22px/1 'NTR',sans-serif; letter-spacing:0; text-decoration:none; }
 .project-card { background:var(--navy-light); border-radius:5px; box-shadow:0 10px 30px -15px rgba(2,12,27,.7); transition:transform .25s ease, box-shadow .25s ease; }.project-card:hover { transform:translateY(-7px); box-shadow:0 20px 30px -15px rgba(2,12,27,.8); }
 .software-section { padding:80px 0; background:var(--navy); }
 .software-shell { width:calc(100% - 300px); max-width:1500px; margin:0 auto; }
