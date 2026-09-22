@@ -73,7 +73,12 @@ export default function SiteGameMode() {
         const section = document.getElementById(id);
         const rect = section?.getBoundingClientRect();
         const target = (rect ? rect.top + window.scrollY : start.docY + (index + 2) * 700) + (index === 0 ? 320 : 180);
-        const platform = route.reduce((nearest, item) => Math.abs(item.docY - target) < Math.abs(nearest.docY - target) ? item : nearest, route[0]);
+        const nearest = route.reduce((current, item) => Math.abs(item.docY - target) < Math.abs(current.docY - target) ? item : current, route[0]);
+        // The Experience collectible sits just before the Mist Solutions role.
+        // Give it a wider dedicated landing ledge that overlaps the route on
+        // either side, so it cannot become an unreachable jump.
+        const platform = id === 'skills' ? { x: 175, docY: nearest.docY, width: 240 } : nearest;
+        if (id === 'skills') route.push(platform);
         return { x: platform.x + platform.width / 2, docY: platform.docY - 20, phase: index * 1.5, collected: false };
       });
       player.x = start.x + 25; player.docY = start.docY - PLAYER_HEIGHT; player.vx = player.vy = 0; player.grounded = true;
